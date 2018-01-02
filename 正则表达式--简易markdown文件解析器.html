@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>正则表达式之简易markdown文件解析器</title>
+<style>
+	html{
+		height: 100%;
+	}
+	
+	body{
+		height: 100%;
+		margin: 0;
+	}
+	
+	#result{
+		background: #eee;
+		position: absolute;
+		left: 45%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding: 10px;
+		overflow-y: scroll;
+	}
+	
+	#origin{
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 55%;
+		bottom: 0;
+		background: #555;
+		border-right: 1px groove black;
+		color: #F3F3F3;
+		padding: 8px;
+		overflow-y: scroll;
+		font-size:14px;
+		line-height: 20px;
+	}
+	
+	
+	
+	pre{
+		border: 1px solid #aaa;
+	}
+	
+	blockquote{
+		border-left: 3px solid gray;
+		padding: 5px;
+		margin: 10px 0;
+		background-color: white;
+	}
+</style>
+</head>
+
+<body>
+<div id="result"></div>
+<div id="origin" contenteditable="true"></div>
+
+<script>
+	var convertedContent=document.getElementById("result");
+	var originContent=document.getElementById("origin");
+	originContent.innerHTML="<div>#Standard Markdown***</div>"+
+				"<div>##TITLE2</div>"+
+		"<div>###TITLE3</div>"+
+		"<div>####TITLE4</div>"+
+		"<div>#####TITLE5</div>"+
+		"<div>######TITLE6</div>"+
+		"<div>***</div>"+
+				"<div>```</div>"+
+				"<div>pre<br></div>"+
+				"<div>```</div>"+
+				"<div>**Strong** and *Emphasize*</div>"+
+				"<div>```</div>"+
+				"<div>###asd</div>"+"<div>###asd</div>"+
+				"<div>```</div>"+
+		"<div>***</div>"+
+		"<div>###无序列表</div>"+"<div>*A</div>"+"<div>*B</div>"+"<div>*C</div>"+
+		"<div>###有序列表</div>"+"<div>1.&nbsp;A</div>"+"<div>2.&nbsp;B</div>"+"<div>3.&nbsp;C</div>"+
+		"<div>***</div>"+
+		"<div>&gt;引用</div>"+
+		"<div>###插入图片</div>"+"<div>![Mou icon](http://www.mouapp.com/Mou_128.png)</div>"+
+		"<div>###插入链接</div>"+"<div>[baidu](http://www.baidu.com)</div>";
+	
+	/*function readMD(){
+		var origin=originContent.innerHTML;
+		var firstline="";
+		if(origin.match(/^.*?(?=<div>)/)){
+			firstline=origin.match(/^.*?(?=<div>)/)[0];
+		}
+		var mdArr=origin.match(/<div>.*?<\/div>/g);
+		for(var i=0;i<mdArr.length;i++){
+			mdArr[i]=mdArr[i].replace(/^<div>/,"").replace(/<\/div>$/,"").replace(/&nbsp;/g," ");
+			if(mdArr[i]=="<br>"){
+				mdArr[i]="\n";
+			}
+		}
+		return (firstline+mdArr.join("\n"));
+	}*/
+	
+	//将原markdown语句转换为html格式的字符串
+	function markdownToHTML(str){
+		//str=str.replace(/&nbsp;/g," ");
+		
+		//htmlArr用于存放转换好的md字符
+		var htmlArr=[];
+		
+		var blockquoteArr=str.match(/<div>```<\/div>(.*?)<div>```<\/div>/g);
+		var origin=str.replace(/<div>```<\/div>(.*?)<div>```<\/div>/g,"<pre>$1</pre>");;
+		
+		var mdArr=origin.match(/(<div>.*?<\/div>)|(<pre>.*?<\/pre>)/g);
+		
+		
+		//console.log(blockquoteArr);
+		console.log(mdArr);
+		
+		//转换规则
+		var titlerules={
+			title1:[/<div>\s*#\s*(?!#)(.*)<\/div>/,"<h1>$1</h1>"],
+			title2:[/<div>\s*##\s*(?!#)(.*)<\/div>/,"<h2>$1</h2>"],
+			title3:[/<div>\s*###\s*(?!#)(.*)<\/div>/,"<h3>$1</h3>"],
+			title4:[/<div>\s*####\s*(?!#)(.*)<\/div>/,"<h4>$1</h4>"],
+			title5:[/<div>\s*#####\s*(?!#)(.*)<\/div>/,"<h5>$1</h5>"],
+			title6:[/<div>\s*######\s*(?!#)(.*)<\/div>/,"<h6>$1</h6>"],
+			ul:[/<div>\*([^\*]*)<\/div>/,"<li class='ul'>$1</li>"],
+			ol:[/<div>\d\.\s*(.*)<\/div>/,"<li class='ol'>$1</li>"],
+			blockquote:[/<div>&gt;(.*)<\/div>/,"<blockquote>$1</blockquote>"],
+			horizonline:[/\*\*\*/,"<hr>"],
+			bold:[/\*\*(.*?)\*\*/g,"<strong>$1</strong>"],
+			italic:[/\*(.*?)\*/g,"<em>$1</em>"],
+			img:[/!\[(.*?)\]\((.*?)\)/g,"<img src='$2' alt='$1'>"],
+			link:[/\[(.*?)\]\((.*?)\)/g,"<a href='$2' target='_blank'>$1<a>"]
+		};
+		var inlinerules={
+			bold:[/\*\*(.*?)\*\*/g,"<strong>$1</strong>"],
+		};
+		
+		for(var i=0;i<mdArr.length;i++){
+			if(mdArr[i].match(/^<div>/)){
+				htmlArr.push(convert(mdArr[i]));
+			}
+			else if(mdArr[i].match(/^<pre>/)){
+				htmlArr.push(mdArr[i]);
+			}
+		}
+			
+			
+		function convert(mdstr){
+			var convertedSTR=mdstr.replace(/&nbsp;/g," ");
+			if(convertedSTR=="<div><br></div>"){
+				convertedSTR="";
+			}
+			for(var rule in titlerules){
+				if(mdstr.match(titlerules[rule][0])){
+					convertedSTR=convertedSTR.replace(titlerules[rule][0],titlerules[rule][1]);
+				}
+			}
+			return convertedSTR;
+		}	
+		
+		console.log(htmlArr);
+		
+		var htmlContent=htmlArr.join("");
+		
+		//列表
+		htmlContent=htmlContent.replace(/((<li class='ol'>.*?<\/li>){1,})/g,"<ol>$1<\/ol>");
+		htmlContent=htmlContent.replace(/((<li class='ul'>.*?<\/li>){1,})/g,"<ul>$1<\/ul>");
+		return htmlContent;
+	}
+	
+	convertedContent.innerHTML=markdownToHTML(originContent.innerHTML);
+	
+	
+	originContent.addEventListener("keyup",function(e){
+		convertedContent.innerHTML=markdownToHTML(originContent.innerHTML);
+		//console.log(convertedContent.innerHTML);
+	},false);
+</script>
+</body>
+</html>

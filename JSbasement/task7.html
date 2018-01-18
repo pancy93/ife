@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>任务七：JavaScript和树（一）</title>
+<style type="text/css">
+	div {
+		background: #FFFFFF;
+		border:1px solid #000000;
+		margin:30px;
+		display: flex;
+		flex-grow:1;
+	}	
+	div div div div{
+		height: 100px;
+	}
+	button{
+		background: #1863C9;
+		font-size: 20px;
+		color: #cc4a48;
+	}
+</style>
+</head>
+
+<body>
+<div id="rootNode">
+	<div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+</div>
+<button id="dlr">dlr</button>
+<button id="ldr">ldr</button>
+<button id="lrd">lrd</button>
+
+<script>
+	
+	var rootNode=document.getElementById("rootNode");
+	
+	//用动画表示数组顺序
+	function animation(arr){
+		var domCount=0;
+		var i=setInterval(function (){
+			if(domCount<arr.length){
+				arr[domCount].style.background="blue";
+				setTimeout(function(){
+					arr[domCount-1].style.background="#fff";
+				},500);
+				domCount++;
+			}
+			else{
+				clearInterval(i);
+			}
+		},1000);
+	}
+	
+	//构建遍历的dom数组
+	function dlr(root,queue){
+		if(root!=null){
+			queue.push(root);
+			dlr(root.children[0],queue);
+			dlr(root.children[1],queue);
+		}
+	}
+	
+	function ldr(root,queue){
+		if(root!=null){
+			ldr(root.children[0],queue);
+			queue.push(root);
+			ldr(root.children[1],queue);
+		}
+	}
+	
+	function lrd(root,queue){
+		if(root!=null){
+			lrd(root.children[0],queue);
+			lrd(root.children[1],queue);
+			queue.push(root);
+		}
+	}
+	
+	document.getElementById("dlr").onclick=function (){
+		var traversalQueue=new Array();
+		dlr(rootNode,traversalQueue);
+		animation(traversalQueue);
+	}
+	document.getElementById("ldr").onclick=function (){
+		var traversalQueue=new Array();
+		ldr(rootNode,traversalQueue);
+		animation(traversalQueue);
+	}
+	document.getElementById("lrd").onclick=function (){
+		var traversalQueue=new Array();
+		lrd(rootNode,traversalQueue);
+		animation(traversalQueue);
+	}
+</script>
+</body>
+</html>

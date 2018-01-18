@@ -1,0 +1,84 @@
+body{
+	margin:0;
+	padding:0;
+	width:1280px;
+}
+
+header{
+	background:#2189bf;
+	width:100%;
+	height:56px;
+	position:fixed;
+	top:0;
+}
+
+header #logo{
+	position:relative;
+	top:50%;
+	left:50px;
+	transform:translateY(-50%);
+}
+
+header form{
+	float:right;
+	position:relative;
+	top:50%;
+	right:50px;
+	transform:translateY(-50%);
+}
+
+header form .search{
+	width:313px;
+	height:28px;
+	border-radius:28px;
+	border:none;
+	padding-left:40px;
+	font-size:16px;
+}
+
+header form .login{
+	background:url(source/task9/head-login.png) no-repeat;
+	border:none;
+	color:#fff;
+	font:12px "SimHei";
+	margin-left:20px;
+	padding-left:20px;
+}
+
+header form img{
+	position:absolute;
+	left:15px;
+	top:50%;
+	transform:translateY(-50%);
+}
+
+.mainpage{
+	margin-left:260px;
+	margin-top:56px;
+	position:relative;
+}
+
+.navigation{
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:-260px;
+	width:260px;
+	background:#2a2e3d;
+	color:white;
+}
+
+.section1{
+	height:30px;
+	font:bold 12px/30px "SimHei";
+	color:#aaa;
+	padding:0 30px;
+}
+
+.section1 a{
+	padding:0 10px;
+}
+
+.section1 a:hover{
+	color:blue;
+}

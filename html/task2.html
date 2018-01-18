@@ -1,0 +1,197 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>  
+<meta charset="utf-8"></meta>  
+    <title>html基础</title>
+ <style>
+	
+	body{background-color:#e7e7e7;padding:0;margin:0;font-family:"Microsoft Yahei";}
+	
+	/*标题栏*/
+	.leading{background:#2c2c2c;height:60px;}
+	.leading .logo{float:left;margin-left:30px;margin-top:10px;}
+	.leading a{color:#ffffff;text-decoration:none;}
+	.leading a:hover{color:#ccccff}
+	.leading li{float:left;margin-right:20px;font-size:12px;}
+	.leading ul{float:right;margin-right:20px;vertical-align:middle;}
+
+	/*段落格式*/
+	.title1{font-size:20px;letter-spacing:0.2em;}
+	.title2{font-size:16px;color:#393939;letter-spacing:0.1em;}
+	.signature{font-size:12px;color:#393939;text-indent:0;}
+	p{font-size:15px;line-height:1.7em;text-indent:2em;}
+	.article1{background-color:#ffffff;padding:20px;margin:20px;border-right:2px solid gray;border-bottom:2px solid gray;}
+
+	/*文章格式*/
+	.article1 ul{list-style-type:none;}
+	.article1 .pic{text-align:center;border:1px solid #919191;margin-bottom:20px;height:150px;width:150px;font-size:12px;line-height:50px;}
+	.article1 .pic img{width:90%;}
+	#summary{text-indent:0;margin-bottom:0;}
+	#tb1{width:100%;border-collapse:collapse;font-size:12px;}
+
+	#tb1 td,th{border:1px solid #919191;padding:4px;} 
+	#tb1 th{text-align:left;background:#393939;color:white;}
+	#tb1 #sum{background-color:#888888;font-weight:bold;}
+
+	.article1 .formtitle{border-left:3px solid #a2a2a2;font-size:16px;padding:10px;}
+	.article1 #formtable{font-size:13px;letter-spacing:0.1em;width:100%;}
+	.article1 #formtable .col1{text-align:right;padding-right:1em;}
+	.article1 #formtable .tips{color:#ababab;padding-bottom:1.2em;}
+	.article1 #formtable .col2 input{border:1px solid #ababab;}
+	.article1 #submit{background-color:#0099ff;width:100%;height:30px;border:none;color:white;
+	font-weight:bold;border-radius:10px;}
+	
+	/*页脚*/
+	.foot{background-color:#000000;color:white;margin:0;padding:0;height:60px;}
+	.foot p{padding:10px;margin:0;text-align:center;font-size:12px;}
+
+
+	/*layout*/
+	.right{}
+
+ </style>
+
+</head>
+<body>
+<div class="leading">
+<h1 class="logo"><img src="https://www.baidu.com/img/baidu_jgylogo3.gif"/></h1>
+<ul>
+	<li><a href="http://www.baidu.com">导航链接一</a></li>
+	<li><a href="">导航链接二</a></li>
+	<li><a href="">导航链接三</a></li>
+	<li><a href="">导航链接四</a></li>
+</ul>
+</div>
+
+<div class="article1">
+<h2 class="title1">文章一级标题</h2>
+<h2 class="title2">文章二级标题</h2>
+<p class="signature">文章作者&nbsp;文章发表时间</p>
+<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，</p>
+<img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" />
+<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。</p>
+</div>
+
+<div class="article1">
+<h2 class="title1">另一篇文章一级标题</h2>
+<h2 class="title2">文章二级标题</h2>
+<p class="signature">文章作者&nbsp;文章发表时间</p>
+<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，</p>
+<img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" />
+<ul>
+	<li>列表项目一</li>
+	<li>列表项目二</li>
+	<li>列表项目三</li>
+</ul>
+</div>
+
+<div class="article1">
+<h2 class="title1">图片</h2>
+<blockquote>
+<div class="pic">好看的图片<br/><img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" /></div>
+<div class="pic">好看的图片<br/><img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" /></div>
+<div class="pic">好看的图片<br/><img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" /></div>
+<div class="pic">好看的图片<br/><img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" /></div>
+<div class="pic">好看的图片<br/><img src="http://gss0.baidu.com/9rkZbzqaKgQUohGko9WTAnF6hhy/mms-res/fed/ife/ife_tutor/课程配图.3fb31f3e5af7e8d7.jpg" /></div>
+</blockquote>
+</div>
+
+<div class="article1">
+<h2 class="title1">最后一篇文章一级标题</h2>
+<h2 class="title2">文章二级标题</h2>
+<p class="signature">文章作者&nbsp;文章发表时间</p>
+<ol>
+	<li>排名1</li>
+	<li>排名2</li>
+	<li>排名3</li>
+</ol>
+<p id="summary">下面是一个表格，给表格加了一个border=1好让你看出是一个表格</p>
+<table id="tb1">
+<tr>
+	<th>表头</th>
+	<th>表头</th>
+	<th>表头</th>
+</tr>
+<tr>
+	<td>表内容单元格</td>
+	<td>表内容单元格</td>
+	<td><a href="">操作</a></td>
+</tr>
+<tr>
+	<td>表内容单元格</td>
+	<td>表内容单元格</td>
+	<td><a href="">操作</a></td>
+</tr>
+<tr>
+	<td>表内容单元格</td>
+	<td>表内容单元格</td>
+	<td><a href="">操作</a></td>
+</tr>
+<tr>
+	<td>表内容单元格</td>
+	<td>表内容单元格</td>
+	<td><a href="">操作</a></td>
+</tr>
+<tr id="sum">
+	<td>总计</td>
+	<td colspan="2">10000</td>
+</tr>
+</table>
+</div>
+
+<div class="article1 right">
+<h2 class="formtitle">这里以后是一个侧栏，这是侧栏的标题</h2>
+
+<form method="post" action="">
+	<table id="formtable">
+	<tr>
+	<td class="col1">请输入邮箱地址</td>
+	<td class="col2"><input type="text" name="mailAddress" value="这是一个文本输入框"/></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td class="tips">邮箱地址请按要求格式输入</td>
+	</tr>
+	<tr>
+	<td class="col1">请输入密码</td>
+	<td class="col2"><input type="password" value="这是一个文本输入框"/></td>
+	</tr>
+	<tr>
+	<td class="col1">请重复输入密码</td>
+	<td class="col2"><input type="password" value="这是一个文本输入框"/></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td class="tips">密码请为6-16位英文数字</td>
+	</tr>
+	<tr>
+	<td class="col1">性别</td>
+	<td class="col2"><input type="radio" value="男" name="1" checked="checked" />男<input type="radio" value="女" name="1" />女</td>
+	</tr>
+	<tr>
+	<td class="col1">城市</td>
+	<td class="col2"><select id="city">
+		<option value="sh">上海</option>
+		<option value="bj" selected="selected">北京</option>
+	</select></td>
+	</tr>
+	<tr>
+	<td class="col1">爱好</td>
+	<td class="col2"><input type="checkbox" name="sport" />运动<input type="checkbox" name="art" />艺术<input type="checkbox" name="science" />科学</td>
+	</tr>
+	<tr>
+	<td class="col1">个人描述</td>
+	<td class="col2"><textarea cols="50em" rows="6em">这是一个多行输入框，输入您的个人描述</textarea></td>
+	</tr>
+	</table>
+
+	<input id="submit" type="submit" value="确认提交" />
+</form>
+</div>
+
+<div class="foot">
+<p>版权所有&copy;</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>正则表达式之入门</title>
+</head>
+
+<body>
+<script>
+	var telReg=/^1(56|88)\d{8}$/;
+	var sameNeighborReg=/(?:^|\s)(\w+)\b\s+\b\1(?:$|\s)/;
+	
+	//匹配手机号，为156或188开头的11位数字
+	console.log("匹配手机号：18812011232为  "+telReg.test("18812011232"));
+	console.log("匹配手机号：18812312为  "+telReg.test("18812312"));
+	console.log("匹配手机号：12345678909为  "+telReg.test("12345678909"));
+	
+	//匹配相邻重复单词
+	console.log("匹配相邻重复单词：foo foo bar为  "+sameNeighborReg.test("foo foo bar"));
+	console.log("匹配相邻重复单词：foo bar foo为  "+sameNeighborReg.test("foo bar foo"));
+	console.log("匹配相邻重复单词：foo  barbar bar为  "+sameNeighborReg.test("foo  barbar bar"));
+	console.log("匹配相邻重复单词：foo -foo foo为  "+sameNeighborReg.test("foo -foo foo"));
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS3饼状loading效果</title>
+
+<style>
+	.outer{
+		position: absolute;
+		left: 50%;
+		top:50%;
+		transform: translate(-50%,-50%);
+		width: 60px;
+		height: 60px;
+		border: 3px solid #F806FF;
+		border-right-color: transparent;
+		border-radius: 50%;
+		padding: 15px;
+		animation: outerrotate 2s linear infinite ;
+		-webkit-animation: outerrotate 2s linear infinite ;
+	}
+	
+	.inner{
+		position: relative;
+	}
+	
+	.innerbg{
+		background-color: #FCA0F0;
+		border-radius: 50%;
+		border: 30px solid #FD41DF;
+		border-right-color: transparent;
+		border-bottom-color: transparent;
+		box-sizing: border-box;
+		
+	}
+	
+	.lightinner{
+		border: 30px solid #FCA0F0;
+		border-top-color: transparent;
+		border-left-color: transparent;
+		border-radius: 50%;
+		box-sizing: border-box;
+		position: absolute;
+		left:0;
+		top:0;
+		z-index: 1;
+		animation: lightinnerrotate 2s linear infinite;
+	}
+	
+	.depthinner{
+		border: 30px solid #FD41DF;
+		border-top-color: transparent;
+		border-left-color: transparent;
+		border-radius: 50%;
+		position: absolute;
+		left:0;
+		top:0;
+		z-index: 2;
+		animation: depthinnerrotate 2s linear infinite;
+	}
+	
+	@keyframes outerrotate{
+		from{transform: translate(-50%,-50%) rotate(0);}
+		to{transform: translate(-50%,-50%) rotate(360deg);}
+	}
+	
+	@keyframes depthinnerrotate{
+		0%{transform: rotate(0);}
+		25%{transform: rotate(180deg);}
+		50%{transform: rotate(180deg);}
+		75%{transform: rotate(360deg);}
+		100%{transform: rotate(360deg);}
+	}
+	
+	@keyframes lightinnerrotate{
+		0%{transform: rotate(0);z-index: 1;}
+		25%{transform: rotate(0);z-index: 1;}
+		25.001%{z-index: 3;}
+		50%{transform: rotate(180deg);z-index: 3;}
+		75%{transform: rotate(180deg);z-index: 3;}
+		75.001%{z-index: 1;}
+		100%{transform: rotate(360deg);z-index: 1;}
+	}
+</style>
+</head>
+
+<body>
+<div class="outer">
+	<div class="inner">
+		<div class="innerbg"></div>
+		<div class="depthinner"></div>
+		<div class="lightinner"></div>
+	</div>
+</div>
+</body>
+</html>

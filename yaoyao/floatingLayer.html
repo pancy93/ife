@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>UI组件之浮出层</title>
+<style>
+	body{
+		height: 1000px;
+		margin: 0;
+		padding: 0;
+		position: relative;
+	}	
+	
+	#mask{
+		position: absolute;
+		background: gray;
+		top:0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0.5;
+		display: none;
+	}
+	
+	#floating-layer{
+		position: fixed;
+		min-width: 400px;
+		
+		left:50%;
+		top:50%;
+		transform: translate(-50%,-50%);
+		display: none;
+	}
+	
+	button{
+		font-size: 20px;
+	}
+	
+	#title{
+		background: gray;
+		font:bold 20px Microsoft YaHei;
+		color:#eee;
+		padding: 10px;
+		border: 1px solid black;
+	}
+	
+	.content{
+		background: white;
+		color: #222;
+		padding: 10px;
+		height: 200px;
+		border-width: 0 1px 1px 1px;
+		border-color: black;
+		border-style: solid;
+		font-size: 14px;
+ 	}
+	
+	.content p{
+		text-align: right;
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+		right: 10px;
+	}
+	
+	.content button{
+		background: #2F2F2F;
+		border: 1px solid black;
+		color: #eee;
+		font-size: 14px;
+		padding: 4px;
+	}
+	
+	#popUp{
+		display: block;
+		width: 80px;
+		margin: auto;
+	}
+</style>
+</head>
+
+<body>
+<div id="mask">
+</div>
+<div id="floating-layer">
+	<div id="draggable-layer" draggable="true">
+		<div id="title">这是一个浮出层</div>
+		<div class="content">这是一个浮出层
+			<p><button id="yes">确定</button>
+			<button id="cancel">取消</button></p>
+		</div>
+	</div>
+</div>
+<button id="popUp">点我</button>
+
+<script>
+	//存放drag事件起始的位置
+	var dragStart=[];
+	var dragEnd=[];
+	var lastPosition=[0,0];
+	
+	//popUpFL函数，显示浮出层,将可拖拉的元素位移还原为0
+	function popUpFL(){
+		document.getElementById("mask").style.display="block";
+		document.getElementById("floating-layer").style.display="block";
+		document.body.style.overflow="hidden";
+		document.getElementById("draggable-layer").style.transform="";
+		lastPosition[0]=0;
+		lastPosition[1]=0;
+	}
+	
+	//closeFL函数，关闭浮出层
+	function closeFL(){
+		document.getElementById("floating-layer").style.display="none";
+		document.getElementById("mask").style.display="none";
+		document.body.style.overflow="";
+	}
+	
+	//ds函数，存储drag开始的位置
+	function ds(e){
+		dragStart[0]=e.clientX;
+		dragStart[1]=e.clientY;
+	}
+	
+	//de函数，使drag时间结束后的悬浮窗放在新位置上，新位置的位移坐标由上一次记忆的位置加上drag的距离决定
+	function de(e){
+		dragEnd[0]=e.clientX;
+		dragEnd[1]=e.clientY;
+		lastPosition[0]=lastPosition[0]+dragEnd[0]-dragStart[0];
+		lastPosition[1]=lastPosition[1]+dragEnd[1]-dragStart[1];
+		this.style.transform="translate("+(lastPosition[0])+"px,"+(lastPosition[1])+"px)";
+	}
+	
+	//为按钮绑定弹窗函数
+	document.getElementById("popUp").addEventListener("click",popUpFL,false);
+	//为按钮绑定关闭浮出层函数,点击确定和取消按钮以及灰色遮罩层时关闭浮出层
+	document.getElementById("yes").addEventListener("click",closeFL,false);
+	document.getElementById("cancel").addEventListener("click",closeFL,false);
+	document.getElementById("mask").addEventListener("click",closeFL,false);
+	
+	//可拖拽窗口
+	document.getElementById("draggable-layer").addEventListener("dragstart",ds,false);
+	document.getElementById("draggable-layer").addEventListener("dragend",de,false);
+</script>
+</body>
+</html>

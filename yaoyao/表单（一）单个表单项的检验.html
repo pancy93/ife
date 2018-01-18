@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表单（一）单个表单项的检验</title>
+
+<script>
+	function validate(){
+		var inputName=document.getElementById("inputName");  //获取输入的内容
+		var tips=document.getElementById("tips");  //提示信息
+		
+		//如果输入文本为空
+		if(inputName.value==""){
+			inputName.style.borderColor="red";
+			tips.innerHTML="姓名不能为空";
+			tips.style.color="red";
+			return false;
+		}
+		
+		//输入文本长度
+		var inputLength=0;
+		var charCode;
+		for(var i=0;i<inputName.value.length;i++){
+			charCode=inputName.value.charCodeAt(i);
+			console.log(charCode);
+			if(charCode>=0&&charCode<=128){
+				inputLength+=1;
+			}
+			else{
+				inputLength+=2;
+			}
+		}
+		
+		//判断输入文本长度是否正确
+		if(inputLength>=4&&inputLength<=16){
+			inputName.style.borderColor="green";
+			tips.innerHTML="名称格式正确";
+			tips.style.color="green";
+			return false;
+		}
+		else{
+			inputName.style.borderColor="red";
+			tips.innerHTML="长度为4--16个字符";
+			tips.style.color="red";
+			return false;
+		}
+	}
+</script>
+</head>
+
+<body>
+<form onSubmit="return validate()">
+	名称
+	<input type="text" id="inputName" />
+	<button>验证</button>
+	<p id="tips">必填，长度为4--16个字符</p>
+</form>
+</body>
+</html>

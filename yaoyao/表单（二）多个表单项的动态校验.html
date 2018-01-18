@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表单（二）多个表单项的动态校验</title>
+<style>
+	p{
+		font-size: 13px;
+	}
+</style>
+
+<script>
+	//检测名称
+	function validateName(){
+		var inputName=document.getElementById("inputName");  //获取输入的内容
+		var tips=document.getElementById("tips");  //提示信息
+		
+		//如果输入文本为空
+		if(inputName.value==""){
+			inputName.style.borderColor="red";
+			tips.innerHTML="姓名不能为空";
+			tips.style.color="red";
+			verifyResult[0]=false;
+			return;
+		}
+		
+		//输入文本长度
+		var inputLength=0;
+		var charCode;
+		for(var i=0;i<inputName.value.length;i++){
+			charCode=inputName.value.charCodeAt(i);
+			if(charCode>=0&&charCode<=128){
+				inputLength+=1;
+			}
+			else{
+				inputLength+=2;
+			}
+		}
+		
+		//判断输入文本长度是否正确
+		if(inputLength>=4&&inputLength<=16){
+			inputName.style.borderColor="green";
+			tips.innerHTML="名称格式正确";
+			tips.style.color="green";
+			verifyResult[0]=true;
+		}
+		else{
+			inputName.style.borderColor="red";
+			tips.innerHTML="长度为4--16个字符";
+			tips.style.color="red";
+			verifyResult[0]=false;
+		}
+	}
+	
+	//focus时提示
+	function focusStyle(){
+		this.style.borderColor="gray";
+		this.nextElementSibling.style.color="gray";
+	}
+	
+	//检查密码格式的函数
+	function validatePw(){
+		if(this.value==""){
+			this.style.borderColor="red";
+			this.nextElementSibling.innerHTML="密码不能为空";
+			this.nextElementSibling.style.color="red";
+			verifyResult[1]=false;
+		}															//密码不能为空
+		else{
+			if(this.value.length<6){
+				this.style.borderColor="red";
+				this.nextElementSibling.innerHTML="密码至少6位";
+				this.nextElementSibling.style.color="red";
+				verifyResult[1]=false;
+			}														
+			else{
+				for(var i=0;i<this.value.length;i++){
+					if(this.value.charCodeAt(i)>=0&&this.value.charCodeAt(i)<=128){
+						this.style.borderColor="green";
+						this.nextElementSibling.innerHTML="密码可用";
+						this.nextElementSibling.style.color="green";
+						verifyResult[1]=true;
+					}
+					else{
+						this.style.borderColor="red";
+						this.nextElementSibling.innerHTML="请使用英文小写字母与数字";
+						this.nextElementSibling.style.color="red";
+						verifyResult[1]=false;
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	//确认密码是否一致的函数
+	function ensurePw(){
+		if(this.parentElement.inputPassword.value===this.value){
+			this.style.borderColor="green";
+			this.nextElementSibling.innerHTML="密码输入一致";
+			this.nextElementSibling.style.color="green";
+			verifyResult[2]=true;
+		}else{
+			this.style.borderColor="red";
+			this.nextElementSibling.innerHTML="密码输入不一致";
+			this.nextElementSibling.style.color="red";
+			verifyResult[2]=false;
+		}
+	}
+	
+	function validateEmail(){
+		if(this.value==""){
+			this.style.borderColor="red";
+			this.nextElementSibling.innerHTML="邮箱地址不能为空";
+			this.nextElementSibling.style.color="red";
+			verifyResult[3]=false;
+		}else{
+			var e=/.+@[a-z]+\.(com|cn)$/;
+			if(e.test(this.value)){
+				this.style.borderColor="green";
+				this.nextElementSibling.innerHTML="邮箱地址可用";
+				this.nextElementSibling.style.color="green";
+				verifyResult[3]=true;
+			}else{
+				this.style.borderColor="red";
+				this.nextElementSibling.innerHTML="邮箱地址格式错误";
+				this.nextElementSibling.style.color="red";
+				verifyResult[3]=false;
+			}
+		}
+	}
+	
+	function validateTelnum(){
+		if(this.value==""){
+			this.style.borderColor="red";
+			this.nextElementSibling.innerHTML="手机号码不能为空";
+			this.nextElementSibling.style.color="red";
+			verifyResult[4]=false;
+		}else{
+			var t=/^\d{11}$/;
+			if(t.test(this.value)){
+				this.style.borderColor="green";
+				this.nextElementSibling.innerHTML="手机号码可用";
+				this.nextElementSibling.style.color="green";
+				verifyResult[4]=true;
+			}else{
+				this.style.borderColor="red";
+				this.nextElementSibling.innerHTML="手机号码格式错误";
+				this.nextElementSibling.style.color="red";
+				verifyResult[4]=false;
+			}
+		}
+	}
+	
+	function validateAll(){
+		var result=true;
+		var e=new Event("blur");
+		for(var k=0;k<inputtext.length;k++){
+			inputtext[k].dispatchEvent(e);
+		}
+		for(var i=0;i<verifyResult.length;i++){
+			result=result&&verifyResult[i];
+		}
+		if(result==true){
+			alert("提交成功");
+		}else{
+			alert("输入有误");
+		}
+		return false;
+	}
+</script>
+</head>
+
+<body>
+<form id="thisform" onSubmit="return validateAll();" style="width: 400px;text-align: center;">
+	名称
+	<input type="text" id="inputName" />
+	<p id="tips"></p>
+	密码
+	<input type="password" name="inputPassword" />
+	<p id="pwtips"></p>
+	密码确认
+	<input type="password" id="ensurePassword" />
+	<p id="pwtips2"></p>
+	邮箱
+	<input type="text" id="email" />
+	<p id="emailtips"></p>
+	手机
+	<input type="text" id="telnum" />
+	<p id="teltips"></p>
+	<div style="text-align: right"><button>提交</button></div>
+	
+</form>
+
+<script>
+	//为各input element 绑定事件
+	var inputtext=document.getElementsByTagName("input");
+	for(var k=0;k<inputtext.length;k++){
+		inputtext[k].addEventListener("focus",focusStyle,false);
+	}
+	
+	var verifyResult=new Array(inputtext.length);
+	for(var count=0;count<verifyResult.length;count++){
+		verifyResult[count]=false;
+	}
+	
+	//input element onfocus时的提示
+	var thisform=document.getElementById("thisform");
+	thisform.inputName.addEventListener("focus",function(){
+		document.getElementById("tips").innerHTML="必填，长度为4--16个字符";
+	},false);
+	thisform.inputPassword.addEventListener("focus",function(){
+		document.getElementById("pwtips").innerHTML="请输入密码";
+	},false);
+	thisform.ensurePassword.addEventListener("focus",function(){
+		document.getElementById("pwtips2").innerHTML="请确认密码";
+	},false);
+	thisform.email.addEventListener("focus",function(){
+		document.getElementById("emailtips").innerHTML="请输入邮箱地址";
+	},false);
+	thisform.telnum.addEventListener("focus",function(){
+		document.getElementById("teltips").innerHTML="请输入手机号码";
+	},false);
+	
+	//为input elements 绑定onblur时间的监听函数
+	thisform.inputName.onblur=validateName;
+	thisform.inputPassword.onblur=validatePw;
+	thisform.ensurePassword.onblur=ensurePw;
+	thisform.email.onblur=validateEmail;
+	thisform.telnum.onblur=validateTelnum;
+</script>
+</body>
+</html>

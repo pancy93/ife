@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>听指令的小方块（一）</title>
+<style>
+	body{
+		text-align: center;
+	}
+	p{
+		text-align: center;
+	}
+	
+	div{
+		display: inline-block;
+		position: relative;
+	}
+	
+	td{
+		height: 40px;
+		width:40px;
+		text-align: center;
+		font-weight: bold;
+	}
+	
+	table{
+		margin: auto;
+	}
+	
+	.leftTb{
+		position: absolute;
+		left: -40px;
+	}
+	
+	.sheett{
+		border:2px solid #000000; 
+		margin: auto;
+		border-collapse: collapse;
+	}
+	
+	#thistable td{
+		border: 1px solid gray;
+		height: 40px;
+		width:40px;
+	}
+	
+	#index{
+		position: absolute;
+	}
+	
+	.frontStyle{
+		background: #FF0004;
+		box-sizing: border-box;
+		border-top: 10px solid #000DFF;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.leftStyle{
+		background: #FF0004;
+		box-sizing: border-box;
+		border-left: 10px solid #000DFF;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.rightStyle{
+		background: #FF0004;
+		box-sizing: border-box;
+		border-right: 10px solid #000DFF;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.backStyle{
+		background: #FF0004;
+		box-sizing: border-box;
+		border-bottom: 10px solid #000DFF;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+</head>
+
+<body>
+<div>
+	<table class="topTb">
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>10</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="leftTb">
+		<tbody>
+			<tr>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>4</td>
+			</tr>
+			<tr>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>6</td>
+			</tr>
+			<tr>
+				<td>7</td>
+			</tr>
+			<tr>
+				<td>8</td>
+			</tr>
+			<tr>
+				<td>9</td>
+			</tr>
+			<tr>
+				<td>10</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="sheett">
+		<tbody id="thistable">
+		</tbody>
+	</table>
+	<p>
+		<button id="go">go</button>
+		<button id="turnLeft">turn left</button>
+		<button id="turnRight">turn right</button>
+		<button id="turnBack">turn back</button>
+	</p>
+</div>
+
+<script>
+	var thisTable=document.getElementById("thistable");
+	
+	//绘制表格作为棋盘
+	var tbrow=new Array(10);
+	for(var i=0;i<10;i++){
+		tbrow[i]=document.createElement("tr");
+		thisTable.appendChild(tbrow[i]);
+		var tbcell=new Array(10);
+		for(var j=0;j<10;j++){
+			tbcell[j]=document.createElement("td");
+			tbrow[i].appendChild(tbcell[j]);
+		}
+	}
+	
+	//为棋子状态设定一个数组（顺时针）
+	var currentStyle=["frontStyle","rightStyle","backStyle","leftStyle"];
+	var currentIndex=0;
+	
+	//附上二维标注
+	
+	//初始化棋子
+	var target=document.createElement("div");
+	tbrow[4].children[4].appendChild(target);
+	target.className=currentStyle[currentIndex];
+	
+	//getListIndex函数，返回该元素在数组中的位置
+	function getListIndex(e,list){
+		for(var i=0;i<list.length;i++){
+			if(e==list[i]){
+				return i;
+			}
+		}
+	}
+	
+	//goAhead函数：根据棋子方向移动棋子
+	function goAhead(t){
+		switch(t.className){
+			case "rightStyle":
+				if(t.parentElement.nextElementSibling)
+					t.parentElement.nextElementSibling.appendChild(t);
+				break;
+			case "leftStyle":
+				if(t.parentElement.previousElementSibling)
+					t.parentElement.previousElementSibling.appendChild(t);
+				break;
+			case "frontStyle":
+				if(t.parentElement.parentElement.previousElementSibling){
+					var order=getListIndex(t.parentElement,t.parentElement.parentElement.children);
+					t.parentElement.parentElement.previousElementSibling.children[order].appendChild(t);
+				}
+				break;
+			case "backStyle":
+				if(t.parentElement.parentElement.nextElementSibling){
+					var order=getListIndex(t.parentElement,t.parentElement.parentElement.children);
+					t.parentElement.parentElement.nextElementSibling.children[order].appendChild(t);
+				}
+				break;
+		}
+	}
+	
+	//为go按钮绑定事件
+	document.getElementById("go").onclick=function(){
+		goAhead(target);
+	};
+	
+	
+	
+	//为转向按钮绑定事件
+	document.getElementById("turnLeft").onclick=function(){
+		currentIndex+=3;
+		target.className=currentStyle[(currentIndex)%4];
+	};
+	
+	document.getElementById("turnRight").onclick=function(){
+		currentIndex++;
+		target.className=currentStyle[currentIndex%4];
+	};
+	
+	document.getElementById("turnBack").onclick=function(){
+		currentIndex+=2;
+		target.className=currentStyle[currentIndex%4];
+	};
+	
+</script>
+</body>
+</html>

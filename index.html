@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Demo Colection</title>
+
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		
+	}
+	#container{
+		display: flex;
+		align-items: stretch;
+		padding: 15px;
+		background: #ccc;
+		border-radius: 10px;
+	}
+	#index{
+		width: 300px;
+		flex-grow: 0;
+		list-style: none;
+		background: white;
+		padding: 5px;
+	}
+	#description{
+		width: 250px;
+		background: white;
+		padding: 10px;
+		font:14px/18px Tahoma;
+		display: flex;
+		align-items: center;
+		position: relative;
+	}
+	li{
+		background: rgb(247, 94, 119);
+		margin: 2px;
+		padding: 5px 10px;
+	}
+	
+	#showtri{
+		position: absolute;
+		border-width: 8px 14px;
+		border-color: transparent;
+		border-right-color: #fff;
+		border-style: solid;
+		right: 276px;
+		top:0;
+		transition: top 0.5s;
+	}
+	#index li a{
+		color: #fff;
+		text-decoration: none;
+		display: block;
+		font:bold 14px Tahoma;
+	}
+</style>
+
+</head>
+
+<body>
+<div id="container">
+	<ul id="index">
+		
+	</ul>
+	<div id="description">
+		<div id="showtri"></div>
+		<div id="content">pancy93@163.com</div>
+	</div>
+</div>
+
+<script>
+	var defultm='pancy93@163.com';
+	var tasks=[
+		{
+			title: 'HTML及CSS模拟报纸排版',
+			link: './html/task6.html',
+			description: '实现 <a href="http://7xrp04.com1.z0.glb.clouddn.com/task_1_6_2.jpg" target="_blank">样例（点击查看）</a>。<br/>'
+			+"页面宽度固定（定宽）。",
+		},
+		{
+			title: 'HTML及CSS实现常见页面架构及样式布局',
+			link: 'html/task7.html',
+			description: '通过HTML及CSS实现设计稿,效果如 <a href="http://7xrp04.com1.z0.glb.clouddn.com/task_1_7_2.jpg" target="_blank">效果图（点击打开）</a>。<br/>'
+			+"当浏览器窗口宽度小于设计稿宽度时，出现横向滚动条，页面内容宽度保持不变，当浏览器窗口宽度大于设计稿宽度时，页面部分内容的宽度保持和浏览器窗口宽度一致。",
+		},
+		{
+			title: 'JavaScript练习-简单的可视化排序',
+			link: 'JSbasement/task5.html',
+			description: '*模拟一个队列，初始队列为空。<br/>'
+			+"*有一个input输入框,限制输入的数字在10-100，队列元素数量最多限制为60个。队列直接用高度表示数字大小。<br/>"
+			+"*有4个操作按钮用于增加和删除队列元素，单击队列中的元素可以将其删除。<br/>"
+			+"*有一个简单的排序功能，这里使用的是冒泡排序（按高度），用可视化的方法表达，正在比较的两个元素为蓝色。",
+		},
+		{
+			title: 'JavaScript练习-简单的查找',
+			link: 'JSbasement/task6.html',
+			description: '基于上一个可视化排序增加和删除元素。<br/>'
+			+"允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过逗号（半角）作为不同内容的间隔。<br/>"
+			+"点击查询按钮时，将输入的查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊颜色标识。",
+		},
+		{
+			title: 'JavaScript和树',
+			link: 'JSbasement/task8.html',
+			description: '页面中展现一颗树结构。<br/>'
+			+"可以以动画的形式呈现遍历的过程。<br/>"
+			+"可以以动画形式查找节点内容和输入框中内容一致的节点。<br />"
+			+"可以在选中的元素中增加新的子树；可以删除选中的元素，包括子树。",
+		},
+		{
+			title: '表单校验',
+			link: 'yaoyao/formValidation.html',
+			description: '表单提交前校验。',
+		},
+		{
+			title: '表单联动',
+			link: 'yaoyao/formSwitch.html',
+			description: '表单联动。',
+		},
+		{
+			title: '听指令的小方块',
+			link: 'yaoyao/blockInOrder.html',
+			description: "使用指令控制小方块移动，移动不能超出格子空间。<br/>"
+			+"TRA指令移动一格，方向不变，MOV指令改变方向并移动一格。移动时长均为1s。",
+		},
+		{
+			title: 'UI组件之浮出层',
+			link: 'yaoyao/blockInOrder.html',
+			description: "使用指令控制小方块移动，移动不能超出格子空间。<br/>"
+			+"TRA指令移动一格，方向不变，MOV指令改变方向并移动一格。移动时长均为1s。",
+		},
+		{
+			title: 'UI组件之排序表格',
+			link: 'yaoyao/blockInOrder.html',
+			description: "使用指令控制小方块移动，移动不能超出格子空间。<br/>"
+			+"TRA指令移动一格，方向不变，MOV指令改变方向并移动一格。移动时长均为1s。",
+		},
+		{
+			title: 'CSS3鼠标悬浮模糊效果',
+			link: 'nuomi/BlurOnMouseEnter.html',
+			description: "html+css实现文字的流光渐变动画与鼠标悬浮模糊效果。",
+		},
+		{
+			title: 'CSS3实现3D 轮播图',
+			link: 'nuomi/3dCarouselWithCSS3.html',
+			description: "CSS3实现3D 轮播图。",
+		},
+		{
+			title: 'CSS3饼状loading效果',
+			link: 'nuomi/CSS3loading.html',
+			description: "CSS3绘制饼状loading效果。",
+		},
+		{
+			title: '正则表达式之简易markdown文件解析器',
+			link: 'nuomi/markdown.html',
+			description: "可以简易解析markdown语句。<br/>"
+			+"可以解析标题、列表、引用和代码块、图片、链接。",
+		},
+		{
+			title: '仿豆瓣fm播放器',
+			link: 'nuomi/FMplayer.html',
+			description: "基于html5的fm播放器,ajax使用api接口来自<a href='http://api.jirengu.com/' target='_blank'>api.jirengu.com/</a>。",
+		},
+	]
+
+	function initIndex(){
+		var container=document.getElementById('container');
+		var index=document.getElementById('index');
+		var description=document.getElementById('content');
+		var tri=document.getElementById('showtri');
+		for(var i=0;i<tasks.length;i++){
+			var newlist=document.createElement('li');
+			newlist.innerHTML='<a href="'+tasks[i].link+'" target="_blank">'+tasks[i].title+'</a>';
+			newlist.index=i;
+			newlist.addEventListener('mouseenter',function(e){
+				description.innerHTML=tasks[this.index].description;
+				tri.style.top=this.offsetTop-index.offsetTop+5+'px';
+			},false);
+			index.appendChild(newlist);
+		}
+		container.addEventListener('mouseleave',function(e){
+			description.innerHTML=defultm;
+			tri.style.top=0+'px';
+		},false);
+	}
+
+	initIndex();
+</script>
+</body>
+</html>

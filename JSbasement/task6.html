@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>任务五：基础JavaScript练习（一）</title>
+</head>
+
+<body>
+	<textarea id="inputText"></textarea>
+	<button id="left-in">left-in</button>
+	<button id="right-in">right-in</button>
+	<button id="left-out">left-out</button>
+	<button id="right-out">right-out</button>
+	<div id="container"></div>
+	<input type="text" id="inquiry"/>
+	<button id="inquire">inquire</button>
+	
+<script type="text/javascript">
+	function leftIn(){
+		var inputText=document.getElementById("inputText").value;
+		if(inputText==""){
+			alert("please enter something separeted by ','");
+			return;
+		}
+		var container=document.getElementById("container");
+		var textArray=inputText.split(",");  //用逗号分割文本域中的字符串
+		for(var i=0;i<textArray.length;i++){
+			var newElement=document.createElement("div");
+			newElement.innerHTML=textArray[i];
+			newElement.style.backgroundColor="red";
+			newElement.style.padding="10px";
+			newElement.style.color="#fff";
+			newElement.style.margin="5px";
+			newElement.style.height="30px";
+			newElement.style.display="inline-block";
+			newElement.addEventListener('click',function (){
+				this.remove();
+			},false);
+			if(container.childElementCount==0){
+				container.appendChild(newElement);
+			}
+			else{
+				container.insertBefore(newElement,container.firstChild)
+			}
+		}
+		
+	}
+	
+	document.getElementById("left-in").onclick=leftIn;//binding leftin function to button
+	
+	function leftOut(){
+		var container=document.getElementById("container");
+		container.removeChild(container.firstChild);
+	}
+	
+	document.getElementById("left-out").onclick=leftOut;//binding leftout function to button
+	
+	function rightIn(){
+		var inputText=document.getElementById("inputText").value;
+		if(inputText==""){
+			alert("please enter something separeted by ','");
+			return;
+		}
+		var container=document.getElementById("container");
+		var textArray=inputText.split(",");
+		for(var i=0;i<textArray.length;i++){
+			var newElement=document.createElement("div");
+			newElement.innerHTML=textArray[i];
+			newElement.style.backgroundColor="red";
+			newElement.style.padding="10px";
+			newElement.style.height="30px";
+			newElement.style.color="#fff";
+			newElement.style.margin="5px";
+			newElement.style.display="inline-block";
+			newElement.addEventListener('click',function (){
+				this.remove();
+			},false);
+			container.appendChild(newElement);
+		}
+		
+	}
+	
+	document.getElementById("right-in").onclick=rightIn;//binding rightin function to button
+	
+	function rightOut(){
+		var container=document.getElementById("container");
+		container.removeChild(container.lastChild);
+	}
+	
+	document.getElementById("right-out").onclick=rightOut;//binding rightout function to button
+	
+	function inquire(){
+		var queue=document.getElementById("container").children;
+		var inquiry=document.getElementById("inquiry").value;
+		for(var i=0;i<queue.length;i++){
+			if(queue[i].innerHTML.search(inquiry)>-1){
+				queue[i].style.background="blue";
+			}
+		}
+	}
+	
+	document.getElementById("inquire").onclick=inquire;
+</script>
+</body>
+</html>

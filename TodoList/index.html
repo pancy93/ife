@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css"  rel="stylesheet" >
+    <link href="main.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div class="navbar">
+            <h1>TodoList</h1>
+        </div>
+        <div class="tips">
+            添加新的任务
+        </div>
+        <form @submit.prevent="merge" id="newtask">
+            <input type="text" id="addtask" v-model="currentEdit.title" placeholder="add a todo">
+            <div class="eitdetail">
+                <textarea v-model="currentEdit.detail" placeholder="detail"></textarea>
+                <input type="datetime-local" v-model="currentEdit.time" id="timetable">
+            </div>
+            <button type="submit" id="submit">+</button>
+        </form>
+        <div id="todo">
+            <strong>未完成</strong>
+            <todotask :todo="todo" :index="index" v-for="(todo,index) in todoList" v-if="!todo.completed">
+            </todotask>
+        </div>
+        <div id="completed">
+            <strong>已完成</strong>
+            <div v-for="(todo,index) in todoList" v-if="todo.completed" class="completedstyle">
+                <span @click="incomplete(index)"></span>
+                {{todo.title}}
+                <button @click="remove(index)">×</button>
+            </div>
+        </div>
+    </div>
+
+    <template id="todo-tpl">
+        <div class="todostyle">
+            <span @click="action('complete',index)"></span>
+            {{todo.title}}
+            <button @click="action('remove',index)">×</button>
+            <button @click="action('edit',index)"><img src="dependence/36-Edit.png" width="20px"></button>
+            <button @click="action('showDetail',index)"><img src="dependence/detail.png" width="20px"></button>
+            <div class="detail" v-if='todo.showD' style="font-size:14px;">{{(todo.detail||"暂无描述")}}</div>
+        </div>
+    </template>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

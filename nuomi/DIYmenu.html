@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>自定义网页右键菜单</title>
+
+<style>
+	#menuarea{
+		height: 400px;
+		background: #ccc;
+		border: 1px solid #333;
+		position: relative;
+	}
+	
+	ul {
+		background: white;
+		padding: 0;
+		margin: 0;
+	}
+	
+	li{
+		padding: 0 20px;
+		appearance:none;
+		border: 1px solid #666;
+		list-style-type: none;
+		cursor: context-menu;
+	}
+	
+	li:hover{
+		padding: 0 20px;
+		appearance:none;
+		border: 1px solid #666;
+		background: #ddd;
+	}
+</style>
+</head>
+
+<body>
+<div id="menuarea">
+	right click to see contextmenu
+</div>
+
+<script>
+	var menuarea=document.getElementById("menuarea");
+	//暂时存放现在的自定义菜单
+	var currentmenu=document.createElement("ul");
+	
+	//出现自定义菜单
+	function getmenu(e){
+		var newmenu=document.createElement("ul");
+		newmenu.innerHTML="<li>Menu Item1</li><li>Menu Item2</li><li>Menu Item3</li><li>Menu Item4</li>";
+		
+		//防止菜单超出指定区域
+		newmenu.style.position="absolute";
+		menuarea.appendChild(newmenu);
+		if(e.clientX-menuarea.offsetLeft>=menuarea.clientWidth-newmenu.offsetWidth){
+			newmenu.style.left=e.clientX-menuarea.offsetLeft-newmenu.offsetWidth+"px";
+		}else{
+			newmenu.style.left=e.clientX-menuarea.offsetLeft+"px";
+		}
+		if(e.clientY-menuarea.offsetTop>=menuarea.clientHeight-newmenu.offsetHeight){
+			newmenu.style.top=e.clientY-menuarea.offsetTop-newmenu.offsetHeight+"px";
+		}else{
+			newmenu.style.top=e.clientY-menuarea.offsetTop+"px";
+		}
+		
+		return newmenu;
+	}
+	
+	//点击菜单弹出弹窗
+	function clickmenu(){
+		var menuItems=document.getElementsByTagName("li");
+		for(var i=0;i<menuItems.length;i++){
+			menuItems[i].addEventListener("click",function (e){
+				currentmenu.remove();
+				alert("you selected the '"+e.target.innerHTML+"'");
+			},false);
+		}
+	}
+	
+	//绑定鼠标点击右键的行为，取消默认菜单，自定义右键菜单
+	menuarea.oncontextmenu=function(e){
+		currentmenu.remove();
+		e.preventDefault();
+		currentmenu=getmenu(e);
+		clickmenu();
+	};
+	
+	//单击鼠标菜单消失
+	menuarea.addEventListener("click",function(){
+		currentmenu.remove();
+	},false);
+	
+	document.body.addEventListener("click",function(){
+		console.log("a");
+		currentmenu.remove();
+	},false);
+</script>
+</body>
+</html>

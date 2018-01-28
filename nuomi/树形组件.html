@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>树形组件</title>
+<style>
+	#rootnode{
+		background: #eee;
+		padding: 20px;
+		width: 400px;
+		overflow: scroll;
+	}
+	
+	.expand{
+		display: block;
+	}
+	
+	.hide{
+		display: none;
+	}
+	
+	#rootnode li:hover{
+		cursor: pointer;
+	}
+	
+	#rootnode li{
+		list-style: none;
+	}
+	
+	#rootnode .lihide:before{
+		content: "+";
+		display: inline-block;
+		margin: 5px;
+		font-weight: bolder;
+	}
+	
+	#rootnode .liexpand:before{
+		content: "-";
+		display: inline-block;
+		margin: 5px;
+		font-weight: bolder;
+	}
+	
+	#rootnode .liblank:before{
+		content: "";
+		display: inline-block;
+		margin: 5px;
+		font-weight: bolder;
+	}
+	
+	#selected{
+		background: #ccc;
+	}
+</style>
+</head>
+
+<body>
+<div id="rootnode">
+<button id="addbtn">add new folder</button>
+<button id="deletebtn">delete folder</button>
+</div>
+
+
+<script>
+	var nodes = [ {name: "父节点1", children: [ {name: "子节点1"}, {name: "子节点2"} ]}, {name: "父节点2", children: [ {name: "子节点3"}, {name: "子节点4", children:[ {name:"子节点5"} ]} ]} ];
+	
+	var rootnode=document.getElementById("rootnode");
+	var list=document.getElementsByTagName("li");
+	
+	//从nodes创建树形Dom组件(前序)
+	function createListTree(nodes,element){
+		//为nodes数组分配一个ul元素
+		var newChildlist=document.createElement("ul");
+		newChildlist.className="hide";
+		element.appendChild(newChildlist);
+		//为nodes中的每个成员分配一个li元素,并对其children数组递归
+		for(var i=0;i<nodes.length;i++){
+			if(nodes[i].name){
+				var newfolder=document.createElement("li");
+				newfolder.innerHTML=nodes[i].name;
+				newfolder.className="lihide";
+				listExpandAndHide(newfolder);
+				newChildlist.appendChild(newfolder);
+				if(nodes[i].children){
+					createListTree(nodes[i].children,newfolder);
+				}
+				else{
+					newfolder.appendChild(document.createElement("ul"));
+					newfolder.className="liblank";
+				}
+			}
+		}
+	}
+	
+	//点击li元素切换元素样式
+	function listExpandAndHide(liele){
+		liele.addEventListener("click",function(e){
+			e.stopPropagation();
+			if(e.target.firstElementChild.firstElementChild){
+				classSwitch(e.target.children[0],"expand","hide");
+				classSwitch(e.target,"liexpand","lihide");
+			}
+		},false);
+	}
+	
+	//使element的样式在style1和style2之间切换
+	function classSwitch(element,style1,style2){
+		switch(element.className){
+			case style1:
+				element.className=style2;
+				break;
+			case style2:
+				element.className=style1;
+				break;
+			default:
+				element.className=style1;
+				break;
+		}
+	}
+	
+	//初始化dom树
+	createListTree(nodes,rootnode);
+	rootnode.lastChild.className="expand";
+	
+</script>
+</body>
+</html>

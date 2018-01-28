@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>听指令的小方块（二）</title>
+<style>
+	body{
+		text-align: center;
+	}
+	p{
+		text-align: center;
+	}
+	
+	div{
+		display: inline-block;
+		position: relative;
+	}
+	
+	td{
+		height: 40px;
+		width:40px;
+		text-align: center;
+		font-weight: bold;
+		box-sizing: border-box;
+	}
+	
+	table{
+		margin: auto;
+	}
+	
+	.leftTb{
+		position: absolute;
+		left: -40px;
+	}
+	
+	.sheett{
+		border:2px solid #000000; 
+		margin: auto;
+		border-collapse: collapse;
+	}
+	
+	#thistable td{
+		border: 1px solid gray;
+		height: 40px;
+		width:40px;
+	}
+	
+	.frontStyle{
+		background: #FF0004;
+		box-sizing: border-box;
+		border-top: 10px solid #000DFF;
+		width: 100%;
+		height: 100%;
+		transition: translate 1s;
+		position: relative;
+	}
+	
+</style>
+</head>
+
+<body>
+<div>
+	<table class="topTb">
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>10</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="leftTb">
+		<tbody>
+			<tr>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>4</td>
+			</tr>
+			<tr>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>6</td>
+			</tr>
+			<tr>
+				<td>7</td>
+			</tr>
+			<tr>
+				<td>8</td>
+			</tr>
+			<tr>
+				<td>9</td>
+			</tr>
+			<tr>
+				<td>10</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="sheett">
+		<tbody id="thistable">
+		</tbody>
+	</table>
+	<p>
+		<select id="order">
+			<option>TRA LEF</option>
+			<option>TRA TOP</option>
+			<option>TRA RIG</option>
+			<option>TRA BOT</option>
+			<option>MOV LEF</option>
+			<option>MOV TOP</option>
+			<option>MOV RIG</option>
+			<option>MOV BOT</option>
+		</select>
+		<button id="go">go</button>
+	</p>
+</div>
+
+<script>
+	var thisTable=document.getElementById("thistable");
+	
+	
+	//绘制表格作为棋盘
+	var tbrow=new Array(10);
+	for(var i=0;i<10;i++){
+		tbrow[i]=document.createElement("tr");
+		thisTable.appendChild(tbrow[i]);
+		var tbcell=new Array(10);
+		for(var j=0;j<10;j++){
+			tbcell[j]=document.createElement("td");
+			tbrow[i].appendChild(tbcell[j]);
+		}
+	}
+	
+	
+	//初始化棋子
+	var target=document.createElement("div");
+	tbrow[0].children[0].appendChild(target);
+	target.className="frontStyle";
+	target.style.left="0";
+	target.style.top="0";
+	
+	//getListIndex函数，返回该元素在数组中的位置
+	function getListIndex(e,list){
+		for(var i=0;i<list.length;i++){
+			if(e==list[i]){
+				return i;
+			}
+		}
+	}
+	
+	//goAhead函数：根据指令移动棋子
+	function goAhead(t){
+		var order=document.getElementById("order").value;
+		var leftpx=Number(t.style.left.replace(/px/,""));
+		var toppx=Number(t.style.top.replace(/px/,""));
+		//指令为TRA*时使移动时间为1s，指令为MOV时使旋转时间为1s，后接1s移动时间
+		switch(order){
+			case "TRA LEF":
+				if(leftpx>0){
+					leftpx-=40;
+					t.style.left=leftpx+"px";
+					t.style.transition="left 1s";
+				}
+				break;
+			case "TRA RIG":
+				if(leftpx<360){
+					leftpx+=40;
+					t.style.left=leftpx+"px";
+					t.style.transition="left 1s";
+				}
+				break;
+			case "TRA TOP":
+				if(toppx>0){
+					toppx-=40;
+					t.style.top=toppx+"px";
+					t.style.transition="top 1s";
+				}
+				break;
+			case "TRA BOT":
+				if(toppx<360){
+					toppx+=40;
+					t.style.top=toppx+"px";
+					t.style.transition="top 1s";
+				}
+				break;
+			case "MOV LEF":
+				if(t.style.transform!="rotate(-90deg)"){
+					t.style.transform="rotate("+(-90)+"deg)";
+					t.style.transition="left 1s 1s,transform 1s";
+				}else{
+					t.style.transition="left 1s";
+				}
+				if(leftpx>0){
+					leftpx-=40;
+					t.style.left=leftpx+"px";
+				}
+				break;
+			case "MOV RIG":
+				if(t.style.transform!="rotate(90deg)"){
+					t.style.transform="rotate("+90+"deg)";
+					t.style.transition="left 1s 1s,transform 1s";
+				}else{
+					t.style.transition="left 1s";
+				}
+				if(leftpx<360){
+					leftpx+=40;
+					t.style.left=leftpx+"px";
+				}
+				break;
+			case "MOV TOP":
+				if(t.style.transform!="rotate(0deg)"){
+					t.style.transform="rotate("+0+"deg)";
+					t.style.transition="top 1s 1s,transform 1s";
+				}else{
+					t.style.transition="top 1s";
+				}
+				if(toppx>0){
+					toppx-=40;
+					t.style.top=toppx+"px";
+				}
+				break;
+			case "MOV BOT":
+				if(t.style.transform!="rotate(180deg)"){
+					t.style.transform="rotate("+180+"deg)";
+					t.style.transition="top 1s 1s,transform 1s";
+				}else{
+					t.style.transition="top 1s";
+				}
+				if(toppx<360){
+					toppx+=40;
+					t.style.top=toppx+"px";
+					console.log(t.style.top);
+				}
+				break;
+		}		
+	}
+	
+	//为go按钮绑定事件
+	document.getElementById("go").onclick=function(){
+		goAhead(target);
+	};
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>UI组件之排序表格</title>
+
+<style>
+	table{
+		font-size: 16px;
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	th{
+		background: #383838;
+		color: white;
+		border: 1px solid #ccc;
+		padding: 5px;
+		position: relative;
+		cursor: pointer;
+	}
+	
+	td{
+		border: 1px solid #ccc;
+		padding: 5px;
+		text-align: center;
+	}
+	
+	p{
+		text-align: center;
+	}
+	
+	th:nth-child(n+2):after{
+		content: "";
+		position: absolute;
+		right: 5px;
+		bottom: 5px;
+		border-top: 5px solid #fff;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+	}
+	
+	th:nth-child(n+2):before{
+		content: "";
+		position: absolute;
+		right: 5px;
+		
+		border-bottom: 5px solid #fff;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+	}
+</style>
+</head>
+
+<body>
+<table>
+	<tbody id="thisTable">
+		<tr>
+			<th>姓名</th>
+			<th>语文</th>
+			<th>数学</th>
+			<th>英语</th>
+			<th>总分</th>
+		</tr>
+		<tr>
+			<td>小明</td>
+			<td>80</td>
+			<td>90</td>
+			<td>70</td>
+			<td>240</td>
+		</tr>
+		<tr>
+			<td>小红</td>
+			<td>90</td>
+			<td>60</td>
+			<td>90</td>
+			<td>240</td>
+		</tr>
+		<tr>
+			<td>小亮</td>
+			<td>60</td>
+			<td>100</td>
+			<td>70</td>
+			<td>230</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<button id="addrow">增加一行</button>
+	<button id="delrow">删除一行</button>
+</p>
+
+<script>
+	var thisTable=document.getElementById("thisTable");
+	var thead=thisTable.getElementsByTagName("th");
+	
+	//setEditable函数，设置参数的dom集为可编辑
+	function setEditable(arr){
+		for(var i=0;i<arr.length;i++){
+			arr[i].contentEditable="true";
+		}
+	}
+	
+	//设置初始数据可编辑
+	setEditable(thisTable.getElementsByTagName("td"));
+	
+	//排序函数
+	function tsort(tcol,count){
+		var trows=thisTable.getElementsByTagName("tr");
+		//取出待排序的一列数据
+		var dataToSort=[];
+		for(var k=1;k<trows.length;k++){
+			dataToSort.push(trows[k].children[tcol]);
+		}
+		//对取出的数据排序
+		dataToSort.sort(function (a,b){
+			if(a.innerHTML&&b.innerHTML){
+				if(count%2==1)
+					return a.innerHTML-b.innerHTML;
+				else
+					return b.innerHTML-a.innerHTML;
+			}
+			else if(a.innerHTML){
+				return -1;
+			}
+			else{
+				return 1;
+			}
+		});
+		//重新对表格布局
+		for(var j=0;j<dataToSort.length;j++){
+			thisTable.appendChild(dataToSort[j].parentElement);
+		}
+	}
+	
+	//为每一列表头绑定排序功能
+	var count=[0,0,0,0]
+	
+	thead[1].addEventListener("click",function (){
+		count[1]++;
+		tsort(1,count[1]);
+	},false);
+	
+	thead[2].addEventListener("click",function (){
+			count[2]++;
+			tsort(2,count[2]);
+		},false);
+	
+	thead[3].addEventListener("click",function (){
+			count[3]++;
+			tsort(3,count[3]);
+		},false);
+	
+	thead[4].addEventListener("click",function (){
+			count[4]++;
+			tsort(4,count[4]);
+		},false);
+	
+	//增加行
+	document.getElementById("addrow").onclick=function(){
+		var newrow=document.createElement("tr");
+		newrow.innerHTML="<td></td><td></td><td></td><td></td><td></td>"
+		setEditable(newrow.children);
+		thisTable.appendChild(newrow);
+	}
+	
+	//删除行
+	document.getElementById("delrow").onclick=function(){
+		if(thisTable.children.length>1){
+			thisTable.lastElementChild.remove();
+		}
+	}
+</script>
+</body>
+</html>

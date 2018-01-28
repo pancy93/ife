@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>仿豆瓣音乐播放器</title>
+<style>
+	html{
+		min-width:400px;
+		height:100%;
+	}
+	body{
+		height: 100%;
+		display: flex;
+		margin: 0;
+	}
+	#audioplayer{
+		width: 400px;
+		height: 150px;
+		margin:auto;
+		position:relative;
+	}
+	#audioplayer audio{
+		
+		display: block;
+	}
+	#albumIMG{
+		width:300px;
+		height:300px;
+		border-radius: 50%;
+		background-image: url(pic/53681774_p11_master1200.jpg);
+		color: transparent;
+		text-align: center;
+		line-height: 300px;
+		font-size: 18px;
+		position: absolute;
+		right:-300px;
+		top:50%;
+		transform: translateY(-50%);
+	}
+	#albumIMG:hover{
+		color: white;
+		cursor: pointer;
+		text-shadow: 5px 5px 1px gray;
+	}
+	#lyricMask,#lyricBox{
+		width:300px;
+		height:300px;
+		border-radius: 50%;
+		position: absolute;
+		right:-300px;
+		top:50%;
+		transform: translateY(-50%);
+		display: none;
+	}
+	#lyricMask{
+		background: #333;
+		opacity: 0.8;
+		z-index: 10;
+	}
+	#lyricBox{
+		z-index: 20;
+		overflow: hidden;
+	}
+	#lyrics{
+		width:200px;
+		margin: auto;
+		color: white;
+		text-align: center;
+		position: relative;
+		top: 100px;
+		font-size: 16px;
+		line-height: 30px;
+	}
+	#playlist{
+		position: absolute;
+		width:250px;
+		height:300px;
+		left:0;
+		top:50%;
+		transform: translate(-100%,-50%);
+		overflow-y: scroll;
+		overflow-x: hidden;
+		transition: width 0.7s;
+		color: black;
+		
+		list-style: none;
+		padding: 0;
+	}
+	#playlist::-webkit-scrollbar{
+		width:3px;
+		
+	}
+	#playlist::-webkit-scrollbar-track-piece{
+		background: #ccc;
+	}
+	#playlist::-webkit-scrollbar-thumb{
+		background: gray;
+	}
+	#playlist li{
+		white-space: nowrap;
+		overflow-x: hidden;
+		padding: 5px;
+		text-align: center;
+	}
+	#playlist li:hover{
+		cursor: pointer;
+	}
+	#playlist .active{
+		background: #ccc;
+	}
+	#controls{
+		position: absolute;
+		right:40px;
+		bottom: 0;
+	}
+	#controls img{
+		margin: 10px;
+	}
+	#controls img:hover,#progressbar:hover,#volumbar:hover,#muted:hover,#lyric:hover,#list:hover{
+		cursor: pointer;
+	}
+	h3{
+		margin-left: 50px;
+		width: 250px;
+		height: 25px;
+		line-height: 25px;
+		overflow: hidden;
+		color: #474747;
+		position: absolute;
+		top:-30px;
+		font-family: "Microsoft YaHei";
+	}
+	#title{
+		white-space: nowrap;
+		
+	}
+	#artist{
+		position: absolute;
+		top: 20px;
+		left: 51px;
+		color: #777;
+		font-family: "Microsoft YaHei";
+		font-size: 13px;
+		white-space: nowrap;
+	}
+	#progressbar{
+		height: 5px;
+		background: #ccc;
+		width:300px;
+		position: absolute;
+		top: 48%;
+		left: 50px;
+	}
+	#progressbar #playedbar{
+		height:100%;
+		background: gray;
+		width:0;
+	}
+	#muted{
+		position: absolute;
+		top:33%;
+		left:90px;
+		width: 20px;
+	}
+
+	#volumbar{
+		position: absolute;
+		background: #ccc;
+		height: 3px;
+		width:50px;
+		top: 37%;
+		left: 113px;
+	}
+	#volumbar #volum{
+		height: 100%;
+		background: gray;
+		
+	}
+	#lyric{
+		position: absolute;
+		right: 50px;
+		top:35px;
+		width: 45px;
+	}
+	#list{
+		position: absolute;
+		left: 50px;
+		bottom: 10px;
+		width: 60px;
+	}
+	#playedtime{
+		position: absolute;
+		left: 50px;
+		top:48px;
+		font-size: 13px;
+		color: #777;
+		font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+	}
+</style>
+</head>
+
+<body>
+	<div id="audioplayer">
+		<audio id="track1">track1</audio>
+		<ul id="playlist"></ul>
+		<h3>
+			<span id="title"></span>
+		</h3>
+		<div id="artist"></div>
+		<img id="muted" src="src/voice.png">
+		<div id="volumbar">
+			<div id="volum"></div>
+		</div>
+		<img id="lyric" src="src/lyric.png">
+		<img id="list" src="src/list.png">
+		<div id="playedtime"></div>
+		<div id="progressbar">
+			<div id="playedbar"></div>
+		</div>
+		<div id="controls">
+			<img id="playmode" src="src/loop.png" width="25px">
+			
+			<img id="playBTN" src="src/play.png" width="20px">
+			<img id="nextBTN" src="src/Next.png" width="20px">
+		</div>
+		<div id="albumIMG">click for more details</div>
+		<div id="lyricMask"></div>
+		<div id="lyricBox">
+			<div id="lyrics"></div>
+		</div>
+	</div>
+	
+<script src="fm.js"></script>
+</body>
+</html>

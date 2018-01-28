@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>自定义checkbox， radio样式</title>
+<style>
+	input{
+		display: none;
+	}
+	
+	.pseudo .radiobox label{
+		padding-right:  20px;
+		position: relative;
+	}
+	
+	.pseudo .radiobox input+label::before{
+		content: "";
+		border: 1px solid gray;
+		border-radius: 50%;
+		position: absolute;
+		right: 0;
+		width: 16px;
+		height: 16px;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	.pseudo .radiobox input:checked+label::before{
+		content: "";
+		color: red;
+		border: 1px solid red;
+		border-radius: 50%;
+		position: absolute;
+		right: 0;
+		width: 16px;
+		height: 16px;
+		background: red;
+		background-clip: content-box;
+		padding: 4px;
+		box-sizing: border-box;
+	}
+	
+	.pseudo .checkbox label{
+		padding-right:  20px;
+		position: relative;
+	}
+	
+	.pseudo .checkbox label::after{
+		content: "";
+		border: 1px solid gray;
+		position: absolute;
+		right: 0;
+		width: 15px;
+		height: 15px;
+		padding: 0;
+		box-sizing: border-box;
+		background-size: 50%;
+	}
+	
+	.pseudo .checkbox input:checked+label::after{
+		content: "\2714";
+		color: red;
+		font-size: 13px;
+		line-height: 15px;
+		text-align: center;
+		border: 1px solid red;
+		position: absolute;
+		right: 0;
+		width: 15px;
+		height: 15px;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	.sprit .radiobox input+label{
+		background: url(pic/99322cf8c3283e42.png) no-repeat;
+		background-position: -20px -10px;
+		padding-left: 25px;
+	}
+	
+	.sprit .radiobox input:checked+label{
+		background: url(pic/99322cf8c3283e42.png) no-repeat;
+		background-position: -55px -10px;
+		padding-left: 25px;
+	}
+	
+	.sprit .checkbox input+label{
+		background: url(pic/99322cf8c3283e42.png) no-repeat;
+		background-position: -20px -31px;
+		padding-left: 25px;
+	}
+	
+	.sprit .checkbox input:checked+label{
+		background: url(pic/99322cf8c3283e42.png) no-repeat;
+		background-position: -55px -31px;
+		padding-left: 25px;
+	}
+	
+</style>
+</head>
+
+<body>
+<h2>伪元素实现</h2>
+<form class="pseudo">
+	<div class="radiobox">
+	<input type="radio" name="sex" id="male"/><label for="male">Male</label>
+	<input type="radio" name="sex" id="female"/><label for="female">Female</label>
+	</div>
+	<div class="checkbox">
+	<input type="checkbox" id="a"/><label for="a">A</label>
+	<input type="checkbox" id="b"/><label for="b">B</label>
+	<input type="checkbox" id="c"/><label for="c">C</label>
+	</div>
+</form>
+
+<h2>css sprit</h2>
+<form class="sprit">
+	<div class="radiobox">
+	<input type="radio" name="sex2" id="male2"/><label for="male2">M</label>
+	<input type="radio" name="sex2" id="female2"/><label for="female2">F</label>
+	</div>
+	<div class="checkbox">
+	<input type="checkbox" id="aaa"/><label for="aaa">A</label>
+	<input type="checkbox" id="bbb"/><label for="bbb">B</label>
+	<input type="checkbox" id="ccc"/><label for="ccc">C</label>
+	</div>
+</form>
+</body>
+</html>

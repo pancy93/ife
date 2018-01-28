@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表单（三）联动</title>
+<style type="text/css">
+	p{
+		text-align: center;
+	}
+</style>
+</head>
+
+<body>
+<form id="thisform">
+  <p>
+	  <label>
+	    <input type="radio" name="RadioGroup1" value="student" id="RadioGroup1_0">
+	    在校生</label>
+	  <label>
+	    <input type="radio" name="RadioGroup1" value="notStudent" id="RadioGroup1_1">
+	    非在校生</label>
+  </p>
+  <p id="school" style="display: none;">
+  	学校
+  	<select name="area">
+  		<option value="beijing">北京</option>
+  		<option value="shanghai">上海</option>
+  	</select>
+  	<select name="sch">
+  	</select>
+  </p>
+  <p id="company" style="display: none;">
+  	就业单位
+  	<input />
+  </p>
+</form>
+
+<script>
+	var thisform=document.getElementById("thisform");
+	
+	thisform.RadioGroup1[0].addEventListener("change",selectArea);
+	thisform.RadioGroup1[1].addEventListener("change",inputCompany);
+	
+	thisform.area.addEventListener("change",selectSchool);
+	
+	function selectArea(){
+		document.getElementById("company").style.display="none";
+		document.getElementById("school").style.display="block";
+		thisform.sch.appendChild(document.createElement("option"));
+		thisform.sch.lastElementChild.innerHTML="北京大学";
+		thisform.sch.appendChild(document.createElement("option"));
+		thisform.sch.lastElementChild.innerHTML="清华大学";
+	}
+	
+	function selectSchool(){
+		switch(thisform.area.value){
+			case "beijing":
+				thisform.sch.children[0].innerHTML="北京大学";
+				thisform.sch.children[1].innerHTML="清华大学";
+				break;
+			case "shanghai":
+				thisform.sch.children[0].innerHTML="上海大学";
+				thisform.sch.children[1].innerHTML="复旦大学";
+				break;
+		}
+	}
+	
+	function inputCompany(){
+		document.getElementById("school").style.display="none";
+		document.getElementById("company").style.display="block";
+	}
+</script>
+</body>
+</html>

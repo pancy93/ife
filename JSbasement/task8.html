@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>任务七：JavaScript和树（一）</title>
+<style type="text/css">
+	div {
+		background: #FFFFFF;
+		border:1px solid #000000;
+		margin:30px;
+		display: flex;
+		flex-grow:1;
+		flex-wrap: wrap;
+	}	
+	div div div div{
+		height: 50px;
+	}
+	button{
+		
+		font-size: 20px;
+		
+	}
+	
+	.selected{
+		background: #2E9B7E;
+	}
+</style>
+</head>
+
+<body>
+<div id="rootNode">
+	food
+	<div>
+		fruit
+		<div>
+			small
+			<div>strawberry</div>
+			<div>grape</div>
+		</div>
+		<div>
+			big
+			<div>apple</div>
+			<div>banana</div>
+			<div>watermelon</div>
+		</div>
+	</div>
+	<div>
+		vegetable
+		<div>
+			green
+			<div>greens</div>
+			
+		</div>
+		<div>
+			others
+			<div>potato</div>
+			<div>onion</div>
+		</div>
+	</div>
+</div>
+<footer style="text-align: center">
+<button id="dlr">前序遍历</button>
+<button id="lrd">后序遍历</button>
+<input id="inquiry" type="text" />
+<button id="inquire">查询</button>
+<button id="delete">删除</button>
+<input id="newContent" type="text" />
+<button id="add">增加</button>
+</footer>
+
+<script>
+	
+	var rootNode=document.getElementById("rootNode");
+	
+	//用动画表示数组顺序
+	function animation(arr){
+		var domCount=0;
+		var i=setInterval(function (){
+			if(domCount<arr.length){
+				arr[domCount].style.background="blue";
+				setTimeout(function(){
+					arr[domCount-1].style.background="#fff";
+				},500);
+				domCount++;
+			}
+			else{
+				clearInterval(i);
+			}
+		},1000);
+	}
+	
+	//构建遍历的dom数组,前序遍历
+	function dlr(root,queue){
+		if(root!=null){
+			queue.push(root);
+			for(var i=0;i<root.children.length;i++){
+				dlr(root.children[i],queue);
+			}	
+		}
+	}
+	
+	//后序遍历
+	function lrd(root,queue){
+		if(root!=null){
+			for(var i=0;i<root.children.length;i++){
+				lrd(root.children[i],queue);
+			}
+			queue.push(root);
+		}
+	}
+	
+	//查询
+	function search(inquiretext,queue){
+		var domCount=0;
+		var tof=false;
+		var timer=setInterval(function (){
+			if(domCount<queue.length){
+				queue[domCount].style.background="blue";
+				domCount++;
+				setTimeout(function(){
+					if(queue[domCount-1].childNodes[0].textContent.replace(/\s+/g,"")==inquiretext){
+						queue[domCount-1].style.background="tomato";
+						tof=true;
+					}
+					else{
+						queue[domCount-1].style.background="#fff";
+					}
+				},500);
+			}
+			else{
+				clearInterval(timer);
+				if(tof==false){
+					alert("can't find "+inquiretext);
+				}
+			}
+		},1000);
+	}
+	
+	//绑定前序遍历
+	document.getElementById("dlr").onclick=function (){
+		var traversalQueue=new Array();
+		dlr(rootNode,traversalQueue);
+		animation(traversalQueue);
+	}
+	
+	//绑定后序遍历
+	document.getElementById("lrd").onclick=function (){
+		var traversalQueue=new Array();
+		lrd(rootNode,traversalQueue);
+		animation(traversalQueue);
+	}
+	
+	//绑定查询
+	document.getElementById("inquire").onclick=function (){
+		var inquiry=document.getElementById("inquiry").value;
+		var traversalQueue=new Array();
+		if(inquiry==""){
+			alert("please enter sth. you want to searth.")
+			return;
+		}
+		dlr(rootNode,traversalQueue);
+		search(inquiry,traversalQueue);
+	}
+	
+	//为每一个div加上onclick事件
+	var nodes=document.getElementsByTagName("div");
+	for(var c=0;c<nodes.length;c++){
+		nodes[c].addEventListener("click",select,false);
+	}
+	
+	function select(e){
+		for(var d=0;d<nodes.length;d++){
+			nodes[d].className="";
+		}
+		e.target.className="selected";
+		e.stopPropagation();
+	}
+	
+	//绑定删除节点事件
+	document.getElementById("delete").onclick=function(){
+		var selected=document.getElementsByClassName("selected");
+		if(selected.length==1){
+			selected[0].remove();
+		}
+		else{
+			alert("please select a target element");
+		}
+	}
+	
+	document.getElementById("add").onclick=function(){
+		var addContent=document.getElementById("newContent").value;
+		var selected=document.getElementsByClassName("selected");
+		if(selected.length==1){
+			var newElement=document.createElement("div");
+			selected[0].appendChild(newElement);
+			newElement.innerHTML=addContent;
+		}
+		else{
+			alert("please select a target element");
+		}
+	};
+</script>
+</body>
+</html>

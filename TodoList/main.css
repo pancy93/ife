@@ -1,0 +1,180 @@
+body{
+    background: #ccc;
+    padding: 0;
+    margin: 0;
+}
+
+#main{
+    background-color: rgba(gray, .1);
+}
+
+.navbar{
+    text-align: center;
+    color: whitesmoke;
+    padding: 20px;
+    background: rgb(0, 145, 0);
+}
+
+.navbar h1{
+    font-size: 24px;
+    margin: 0;
+}
+
+.tips{
+    text-align: center;
+    font-size: 18px;
+    padding: 40px 0 10px 0;
+}
+
+#newtask,#todo,#completed{
+    width: 50%;
+    margin: auto;
+}
+
+#addtask{
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    padding: 15px 15px;
+    outline: none;
+}
+
+#newtask{
+    position: relative;
+    
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#newtask #submit{
+    position: absolute;
+    display: inline-block;
+    right:20px;
+    top:8px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: fantasy;
+    font-size: 40px;
+    color: #db4c3f;
+}
+
+#newtask #submit:hover,.todostyle button:hover,.completedstyle button:hover{
+    cursor: pointer;
+}
+
+#newtask textarea{
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 80px;
+    margin: 5px 0;
+}
+
+#newtask #timetable{
+    position: absolute;
+    display: inline-block;
+    right:20px;
+    bottom:15px;
+    border-radius: 5px;
+    font-size: 12px;
+    width: 150px;
+}
+
+#addtask{
+    box-sizing: border-box;
+    border: 1px solid rgba(gray, .5);
+}
+
+body{
+    font-family: "Microsoft YaHei";
+}
+
+#todo div,#completed div{
+    font-size: 16px;
+    padding: 10px 20px;
+    background: rgba(245, 245, 245, 0.8);
+    border-radius: 5px;
+    margin:2px 0
+}
+
+#todo div:hover{
+    font-size: 16px;
+    padding: 10px 20px;
+    background: whitesmoke;
+    border-radius: 5px;
+    margin:2px 0
+}
+
+#todo div button{
+    display: none;
+ 
+}
+
+#completed div button{
+    display: none;
+    
+}
+
+#todo div:hover button{
+    display: inline-block;
+}
+
+#completed div:hover button{
+    display: inline-block;
+}
+
+.todostyle button,.completedstyle button{
+    float: right;
+    margin-left: 10px;
+    margin-top: -10px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: fantasy;
+    font-size: 30px;
+    padding: 5px 0;
+}
+
+.todostyle button{
+    color: #db4c3f;
+}
+
+.todostyle img{
+    transform: translate(0,-4px);
+}
+
+.completedstyle button{
+    color:  rgb(0, 145, 0);
+}
+
+.todostyle span,.completedstyle span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    vertical-align: text-bottom;
+}
+
+.todostyle span{
+    background: #db4c3f;
+}
+
+
+.completedstyle span{
+    background:  rgb(0, 145, 0);;
+}
+
+.todostyle span:hover,.completedstyle span:hover{
+    cursor: pointer;
+}
+
+strong{
+    display: inline-block;
+    padding: 15px 0 5px 20px;
+    color:#444;
+}

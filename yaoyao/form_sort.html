@@ -92,7 +92,7 @@
 
 <script>
 	var thisTable=document.getElementById("thisTable");
-	var thead=document.getElementsByTagName("th");
+	var thead=thisTable.getElementsByTagName("th");
 	
 	//setEditable函数，设置参数的dom集为可编辑
 	function setEditable(arr){
@@ -102,11 +102,11 @@
 	}
 	
 	//设置初始数据可编辑
-	setEditable(document.getElementsByTagName("td"));
+	setEditable(thisTable.getElementsByTagName("td"));
 	
 	//排序函数
 	function tsort(tcol,count){
-		var trows=document.getElementsByTagName("tr");
+		var trows=thisTable.getElementsByTagName("tr");
 		//取出待排序的一列数据
 		var dataToSort=[];
 		for(var k=1;k<trows.length;k++){

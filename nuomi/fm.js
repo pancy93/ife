@@ -154,11 +154,11 @@ function showLyric(sid){
 					if(lyricText){
 						console.log(lyricText);
 						var LineArr=lyricText.split("\n");
-						var timeReg=/\[\d{2}:\d{2}\.\d{2}\]/;
+						var timeReg=/(\[\d{2}:\d{2}\.\d{2}\])/;
 						var lineResult=[];
 						var htmlLyric="";
 
-						for(var i=0;i<LineArr.length;i++){
+						for(var i=1;i<LineArr.length;i++){
 							var time=LineArr[i].match(timeReg);
 							if(!time) 
 								continue;
@@ -175,7 +175,8 @@ function showLyric(sid){
 						for(var q=0;q<lyricBox.childElementCount;q++){
 							lyricBox.children[q].lyricT=lineResult[q][0];
 						}
-					}else{
+					}
+					if(lyricBox.innerHTML==""){
 						lyricBox.innerHTML="暂无歌词";
 					}
 					

@@ -8,7 +8,7 @@ header{width:892px;height:61px;border-bottom:2px solid #938e8c;margin:auto;posit
 #date{font:12px/20px SimHei;color:#d45d5c;position:absolute;right:0;bottom:0;}
 
 .section1{width:892px;margin:auto;margin-top:32px;}
-.topleft{width:641px;height:301px;background-image:url(H:/pic/21868224_p0.jpg);background-position:center center;margin-right:251px;position:relative;}
+.topleft{width:641px;height:301px;background-image:url(./source/task6/21868224_p0.jpg);background-position:center center;margin-right:251px;position:relative;}
 .topright{width:203px;height:299px;border-top:2px solid #cc8091;float:right;position:relative;padding:0;margin:0;}
 
 #mask1{width:191px;height:301px;background-color:#75b86b;opacity:0.6;}
@@ -130,7 +130,7 @@ header{width:892px;height:61px;border-bottom:2px solid #938e8c;margin:auto;posit
 .blcontent .blimg{
 	float:right;
 	margin:10px 0 0 10px;
-	border:1px dotted #767777;
+	
 	clear:left;
 }
 
@@ -138,7 +138,7 @@ header{width:892px;height:61px;border-bottom:2px solid #938e8c;margin:auto;posit
 	height:275px;
 	width:458px;
 	margin-left:434px;
-	background-image:url(H:/pic/6c798ed8jw1etnj2cdohpg20ex07c7wh.gif);
+	background-image:url(./source/task6/21868224_p0.jpg);
 	position:relative;
 }
 

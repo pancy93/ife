@@ -77,7 +77,7 @@ var chan={};
 				}
 				
 			};
-			channelRequest.open("GET",'http://api.jirengu.com/fm/getChannels.php',true);
+			channelRequest.open("GET",'https://jirenguapi.applinzi.com/fm/getChannels.php',true);
 			channelRequest.send(null);
 		}
 	}
@@ -127,7 +127,7 @@ getChannel();
 		
 		if(xmlhttp){
 			xmlhttp.onreadystatechange=getSongData;
-			xmlhttp.open("GET",'http://api.jirengu.com/fm/getSong.php?channel='+currentChannel,true);
+			xmlhttp.open("GET",'https://jirenguapi.applinzi.com/fm/getSong.php?channel='+currentChannel,true);
 			xmlhttp.send(null);
 		}
 		console.log(currentChannel);
@@ -154,7 +154,7 @@ function showLyric(sid){
 					if(lyricText){
 						console.log(lyricText);
 						var LineArr=lyricText.split("\n");
-						var timeReg=/(\[\d{2}:\d{2}\.\d{2}\])/;
+						var timeReg=/\[\d{2}:\d{2}\.\d{2}\]/g;
 						var lineResult=[];
 						var htmlLyric="";
 
@@ -163,7 +163,8 @@ function showLyric(sid){
 							if(!time) 
 								continue;
 							var str=LineArr[i].replace(timeReg,"");
-							var t=time[0].slice(1,-1).split(":");
+							//时间转化为秒
+							var t=time[time.length-1].slice(1,-1).split(":");
 							var sec=parseInt(t[0])*60+parseInt(t[1]);
 							lineResult.push([sec,str]);
 						}

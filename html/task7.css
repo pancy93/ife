@@ -525,9 +525,14 @@ body{
 footer{
 	background:#2f2f38;
 	height:58px;
-	position:relative;
 	font:12px "SimSun";
 	color:#fff;
-	text-align:center;
-	padding:50px;
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	padding: 0 80px ;
+}
+
+footer span,footer a{
+	line-height: 58px;
 }

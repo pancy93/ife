@@ -186,7 +186,7 @@ function showLyric(sid){
 			}
 			
 		};
-		var lyricURL='http://jirenguapi.applinzi.com/fm/getLyric.php?&sid='+sid;
+		var lyricURL='https://jirenguapi.applinzi.com/fm/getLyric.php?&sid='+sid;
 		lyricRequest.open("POST",lyricURL,true);
 		lyricRequest.send();
 	}
